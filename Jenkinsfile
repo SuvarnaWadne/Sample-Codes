@@ -16,13 +16,22 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn clean test'
             }
         }
+    }
 
-        stage('Run Tests') {
-            steps {
-                sh 'mvn test'
-            }
+    post {
+        always {
+            junit 'target/surefire-reports/*.xml'
+        }
+        success {
+            echo 'Tests passed'
+        }
+        failure {
+            echo 'Tests failed'
+        }
+    }
+}
