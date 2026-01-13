@@ -24,18 +24,9 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo 'Publishing TestNG Report'
-            step([
-                $class: 'Publisher',
-                reportFilenamePattern: 'testng-results.xml',
-                reportPath: 'target/surefire-reports',
-                escapeTestDescription: false,
-                escapeExceptionMessages: false,
-                showFailedBuilds: true,
-                showFailedTests: true
-            ])
-        }
+   post {
+    always {
+        echo "Build completed"
     }
+}
 }
