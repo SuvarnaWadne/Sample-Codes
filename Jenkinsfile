@@ -16,26 +16,24 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                // Example for Maven on Windows
+                // Maven build for Windows
                 bat 'mvn clean compile'
-                // If Gradle, replace with: bat 'gradle build'
             }
         }
 
         stage('Run Tests') {
             steps {
-                echo 'Running tests...'
-                // Example for TestNG (adjust if not using TestNG)
-                bat 'mvn test'
+                echo 'Skipping test execution as no tests exist currently.'
+                // If you add tests later, replace the above line with:
+                // bat 'mvn test'
             }
         }
 
         stage('Archive Reports') {
             steps {
-                echo 'Archiving test reports...'
-                // Windows-style path
-                archiveArtifacts artifacts: '**\\target\\surefire-reports\\*.xml', allowEmptyArchive: true
-                junit '**\\target\\surefire-reports\\*.xml'
+                echo 'Archiving HTML or other reports if available...'
+                // Example for Selenium HTML reports (update path if different)
+                archiveArtifacts artifacts: '**\\target\\html-reports\\*.html', allowEmptyArchive: true
             }
         }
     }
@@ -46,10 +44,10 @@ pipeline {
             cleanWs()
         }
         success {
-            echo 'Build and tests successful!'
+            echo 'Build completed successfully!'
         }
         failure {
-            echo 'Build or tests failed!'
+            echo 'Build failed!'
         }
     }
 }
