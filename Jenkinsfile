@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK-17'
-        maven 'Maven-3.9.6'
-    }
-
     stages {
 
         stage('Checkout Code') {
@@ -16,22 +11,25 @@ pipeline {
             }
         }
 
-        stage('Build & Test') {
+        stage('Build') {
             steps {
-                sh 'mvn clean test'
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'mvn test'
             }
         }
     }
 
     post {
-        always {
-            junit 'target/surefire-reports/*.xml'
-        }
         success {
-            echo 'Tests passed'
+            echo 'Build and tests executed successfully'
         }
         failure {
-            echo 'Tests failed'
+            echo 'Build or tests failed'
         }
     }
 }
