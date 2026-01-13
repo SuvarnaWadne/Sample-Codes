@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "../api-automation"
+		},
+		{
+			"path": "../DataDrivenFramework1"
+		},
+		{
+			"path": "../DataDrivenFramework2"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../DemoProject3"
+		},
+		{
+			"path": "../mytest2"
+		},
+		{
+			"path": "../SampleProjects"
+		}
+	]
+}
