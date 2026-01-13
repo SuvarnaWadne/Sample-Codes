@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    tools {
+        // These names must match JDK and Maven installations in your Jenkins Global Tool Config
+        jdk 'JDK-17'
+        maven 'Maven-3.9.6'
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                echo 'Cloning GitHub repository...'
+                git url: 'https://github.com/SuvarnaWadne/Sample-Codes.git', branch: 'QA'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the project...'
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                echo 'Running automation tests...'
+                sh 'mvn test'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'SUCCESS: Build and tests completed!'
+        }
+        failure {
+            echo 'FAILURE: Something went wrong!'
+        }
+    }
+}
