@@ -25,11 +25,17 @@ pipeline {
     }
 
     post {
-        success {
-            echo 'Build and tests executed successfully'
-        }
-        failure {
-            echo 'Build or tests failed'
+        always {
+            echo 'Publishing TestNG Report'
+            step([
+                $class: 'Publisher',
+                reportFilenamePattern: 'testng-results.xml',
+                reportPath: 'target/surefire-reports',
+                escapeTestDescription: false,
+                escapeExceptionMessages: false,
+                showFailedBuilds: true,
+                showFailedTests: true
+            ])
         }
     }
 }
